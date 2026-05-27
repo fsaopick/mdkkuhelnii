@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Telefoni | Товары{% endblock %}
+
+{% block content %}
+  <section class="table-section">
+    <div class="toolbar" style="justify-content:space-between; margin-bottom:18px;">
+      <div>
+        <div class="section-label">Управление товарами</div>
+        <h1 class="page-title">Список смартфонов</h1>
+      </div>
+      <a href="{% url 'product_create_empty' %}" class="button">Добавить товар</a>
+    </div>
+
+    <div class="grid">
+      {% for product in products %}
+        <article class="product-card">
+          <div class="product-photo">
+            {% if product.photo %}
+              <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+            {% else %}
+              <div class="photo-placeholder">Фото смартфона</div>
+            {% endif %}
+          </div>
+          <h2>{{ product.name }}</h2>
+          <p class="muted">
+            Артикул: {{ product.sku }}<br>
+            Тип: {{ product.get_product_type_display }}<br>
+            Остаток: {{ product.stock_quantity }}
+          </p>
+          <div class="toolbar">
+            <span class="price">{{ product.price }} ₽</span>
+            <a href="{% url 'product_detail' product.pk %}" class="button-secondary">Открыть</a>
+          </div>
+          <div class="toolbar">
+            <a href="{% url 'product_create' product.pk %}" class="button-secondary">Копировать</a>
+            <a href="{% url 'product_update' product.pk %}" class="button-secondary">Изменить</a>
+            <a href="{% url 'product_delete' product.pk %}" class="button-secondary">Удалить</a>
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state">Список товаров пуст.</div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

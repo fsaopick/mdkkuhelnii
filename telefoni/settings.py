@@ -1,0 +1,101 @@
+"""Django settings for telefoni project."""
+
+from pathlib import Path
+
+from decouple import config
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = "django-insecure-n^-9cd_bmg2mx_^2!&!9utij#-4qu7c8m49m&q^g6kn0g5ge_h"
+
+DEBUG = True
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
+
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "phonehub",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "telefoni.urls"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = "telefoni.wsgi.application"
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": config("DB_HOST_PGSQL", default="127.0.0.1"),
+        "PORT": config("DB_PORT_PGSQL", default="5432"),
+        "NAME": "telefoni",
+        "USER": config("DB_USERNAME_PGSQL", default="postgres"),
+        "PASSWORD": config("DB_PASSWORD_PGSQL", default=""),
+    }
+}
+
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
+
+
+LANGUAGE_CODE = "ru"
+
+TIME_ZONE = "Europe/Moscow"
+
+USE_I18N = True
+
+USE_TZ = True
+
+
+STATIC_URL = "static/"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "Image"
+
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

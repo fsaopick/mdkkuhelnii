@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Telefoni | Главная{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero-label">Магазин смартфонов</div>
+    <h1>Смартфоны для работы, фото и повседневных задач</h1>
+    <p>
+      Telefoni — это минималистичный магазин телефонов с каталогом, карточками товаров, корзиной, отзывами и заказами.
+      Логика проекта сохранена, но тема полностью переведена на продажу смартфонов.
+    </p>
+    <div class="actions">
+      <a href="{% url 'catalog' %}" class="button">Открыть каталог</a>
+      <a href="{% url 'products_list' %}" class="button-secondary">Управление товарами</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <strong>{{ products_count }}</strong>
+        <span>моделей доступны в каталоге</span>
+      </div>
+      <div class="stat">
+        <strong>{{ brands_count }}</strong>
+        <span>брендов представлены в магазине</span>
+      </div>
+      <div class="stat">
+        <strong>{{ reviews_count }}</strong>
+        <span>отзывов опубликованы на сайте</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Популярные позиции</div>
+    <h2>Избранные смартфоны</h2>
+    <p class="section-text">Ниже выводятся товары из той же модели `Product`, но уже в новой теме магазина телефонов.</p>
+
+    <div class="grid">
+      {% for product in featured_products %}
+        <article class="product-card">
+          <div class="product-photo">
+            {% if product.photo %}
+              <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+            {% else %}
+              <div class="photo-placeholder">Фото смартфона</div>
+            {% endif %}
+          </div>
+          <div class="meta-row muted">
+            <span>{{ product.get_product_type_display }}</span>
+            <span>{{ product.category.name }}</span>
+          </div>
+          <h3><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></h3>
+          <p class="muted">{{ product.description|default:"Описание можно заполнить через административную панель."|truncatechars:120 }}</p>
+          <div class="toolbar">
+            <span class="price">{{ product.price }} ₽</span>
+            <a href="{% url 'add_to_cart' product.pk %}" class="button-secondary">В корзину</a>
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state">Пока нет товаров. Добавь смартфоны через админку или страницу управления.</div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Telefoni | Удаление товара{% endblock %}
+
+{% block content %}
+  <section class="section">
+    <div class="section-label">Удаление</div>
+    <h1 class="page-title">Удалить товар</h1>
+    <p class="section-text">Подтверди удаление смартфона <strong>{{ product.name }}</strong> из каталога.</p>
+
+    <form method="post" class="actions">
+      {% csrf_token %}
+      <button type="submit">Удалить</button>
+      <a href="{% url 'products_list' %}" class="button-secondary">Отмена</a>
+    </form>
+  </section>
+{% endblock %}

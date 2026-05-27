@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Telefoni | Отзывы{% endblock %}
+
+{% block content %}
+  <section class="section">
+    <div class="section-label">Отзывы</div>
+    <h1 class="page-title">Отзывы покупателей</h1>
+
+    <div class="grid">
+      {% for review in reviews %}
+        <article class="review-card">
+          <div class="muted">{{ review.rating }}/5</div>
+          <h2>{{ review.author_name }}</h2>
+          <p>{{ review.text }}</p>
+          <div class="toolbar muted">
+            <span>{{ review.created_at|date:"d.m.Y" }}</span>
+            <a href="{% url 'product_detail' review.product.pk %}">{{ review.product.name }}</a>
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state">Отзывов пока нет.</div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

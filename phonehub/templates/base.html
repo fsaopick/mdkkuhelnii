@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Telefoni{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f6f6f2;
+      --surface: #ffffff;
+      --line: #d7d7cf;
+      --text: #1c1c18;
+      --muted: #65655d;
+      --accent: #111111;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Manrope", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .site-header__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .site-nav a {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .site-nav a.active,
+    .site-nav a:hover {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    .cart-link {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    main {
+      padding: 32px 0 48px;
+    }
+
+    .hero,
+    .section,
+    .table-section,
+    .detail-box,
+    .side-box,
+    .item-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .hero,
+    .section,
+    .table-section {
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .hero-label,
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .hero h1,
+    .page-title,
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .page-title {
+      font-size: clamp(28px, 3vw, 40px);
+    }
+
+    .hero p,
+    .section-text {
+      max-width: 840px;
+      color: var(--muted);
+      margin: 0 0 18px;
+    }
+
+    .actions,
+    .toolbar,
+    .meta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .button,
+    .button-secondary,
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .button-secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .product-card,
+    .review-card,
+    .order-card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 18px;
+    }
+
+    .product-photo {
+      width: 100%;
+      height: 240px;
+      border: 1px solid var(--line);
+      background: #f1f1ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .product-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 12px;
+    }
+
+    .photo-placeholder {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .product-card h3,
+    .product-card h2,
+    .review-card h2,
+    .order-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .detail-layout,
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+
+    .detail-box,
+    .side-box {
+      padding: 22px;
+    }
+
+    .detail-photo {
+      width: 100%;
+      min-height: 460px;
+      border: 1px solid var(--line);
+      background: #f1f1ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-photo img {
+      max-height: 420px;
+      object-fit: contain;
+      padding: 16px;
+    }
+
+    .specs {
+      margin: 20px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .spec {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .item-box {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .thumb {
+      width: 120px;
+      height: 120px;
+      border: 1px solid var(--line);
+      background: #f1f1ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-field--full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea,
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .field-help,
+    .field-errors {
+      font-size: 13px;
+    }
+
+    .field-help {
+      color: var(--muted);
+    }
+
+    .field-errors {
+      color: #9f2f2f;
+    }
+
+    .empty-state {
+      border: 1px dashed var(--line);
+      padding: 22px;
+      color: var(--muted);
+      text-align: center;
+      background: var(--surface);
+    }
+
+    .footer-note {
+      padding: 12px 0 32px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .grid,
+      .stats,
+      .detail-layout,
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .item-box {
+        grid-template-columns: 1fr;
+      }
+
+      .thumb {
+        width: 100%;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__row">
+      <a href="{% url 'home' %}" class="brand">Telefoni</a>
+
+      <nav class="site-nav">
+        <a href="{% url 'home' %}" class="{% if active_page == 'home' %}active{% endif %}">Главная</a>
+        <a href="{% url 'catalog' %}" class="{% if active_page == 'catalog' %}active{% endif %}">Каталог</a>
+        <a href="{% url 'products_list' %}" class="{% if active_page == 'products' %}active{% endif %}">Товары</a>
+        <a href="{% url 'reviews' %}" class="{% if active_page == 'reviews' %}active{% endif %}">Отзывы</a>
+        <a href="{% url 'orders' %}" class="{% if active_page == 'orders' %}active{% endif %}">Заказы</a>
+      </nav>
+
+      <a href="{% url 'cart' %}" class="cart-link"><i class="fa-solid fa-cart-shopping"></i> Корзина</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</body>
+</html>
