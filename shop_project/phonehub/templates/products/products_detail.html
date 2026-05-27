@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Telefoni | {{ product.name }}{% endblock %}
+
+{% block content %}
+  <section class="detail-layout">
+    <div class="detail-box">
+      <div class="detail-photo">
+        {% if product.photo %}
+          <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+        {% else %}
+          <div class="photo-placeholder">Фото смартфона</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <aside class="side-box">
+      <div class="section-label">Карточка товара</div>
+      <h1 class="page-title">{{ product.name }}</h1>
+      <p class="muted">{{ product.description|default:"Описание не заполнено." }}</p>
+
+      <div class="specs">
+        <div class="spec">
+          <span>Тип</span>
+          <span>{{ product.get_product_type_display }}</span>
+        </div>
+        <div class="spec">
+          <span>Сегмент</span>
+          <span>{{ product.category.name }}</span>
+        </div>
+        <div class="spec">
+          <span>Бренд</span>
+          <span>{{ product.brand|default:"Не указан" }}</span>
+        </div>
+        <div class="spec">
+          <span>Цвет</span>
+          <span>{{ product.color|default:"Не указан" }}</span>
+        </div>
+        <div class="spec">
+          <span>Артикул</span>
+          <span>{{ product.sku }}</span>
+        </div>
+        <div class="spec">
+          <span>Остаток</span>
+          <span>{{ product.stock_quantity }}</span>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <span class="price">{{ product.price }} ₽</span>
+        <a href="{% url 'add_to_cart' product.pk %}" class="button">В корзину</a>
+      </div>
+    </aside>
+  </section>
+{% endblock %}

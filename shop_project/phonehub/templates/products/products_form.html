@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Telefoni | {{ title }}{% endblock %}
+
+{% block content %}
+  <section class="section">
+    <div class="section-label">Форма товара</div>
+    <h1 class="page-title">{{ title }}</h1>
+
+    {% if source_product %}
+      <p class="muted">Шаблон для создания: {{ source_product.name }}</p>
+    {% endif %}
+    {% if product %}
+      <p class="muted">Редактируемый товар: {{ product.name }}</p>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-grid">
+        {% for field in form %}
+          <div class="form-field {% if field.name == 'description' or field.name == 'photo' %}form-field--full{% endif %}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<div class="field-help">{{ field.help_text }}</div>{% endif %}
+            {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="actions" style="margin-top:20px;">
+        <button type="submit">Сохранить</button>
+        <a href="{% url 'products_list' %}" class="button-secondary">Назад</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}
